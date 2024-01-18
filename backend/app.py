@@ -14,6 +14,7 @@ app.add_middleware(
 )
 
 
+# sign up
 @app.post("/api/signup")
 async def sign_up(data: dict):
     name = data.get("name")
@@ -25,7 +26,7 @@ async def sign_up(data: dict):
     userdata.insert_one({'name': name, 'username': username, 'password': password})
     return True
 
-
+# login
 @app.get("/api/login")
 async def login(username: str, password: str):
     count = userdata.count_documents({'username': username})
