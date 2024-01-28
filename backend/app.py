@@ -1,6 +1,9 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Body, UploadFile, File
+from typing import List
 from fastapi.middleware.cors import CORSMiddleware
 from database import userdata
+
+# from main import Detector
 
 app = FastAPI()
 
@@ -26,6 +29,7 @@ async def sign_up(data: dict):
     userdata.insert_one({'name': name, 'username': username, 'password': password})
     return True
 
+
 # login
 @app.get("/api/login")
 async def login(username: str, password: str):
@@ -36,3 +40,25 @@ async def login(username: str, password: str):
     if authData["password"] == password:
         return True
     return False
+
+
+# data should be passed in the format given below
+
+# const data = { models: ["m1", "m2", "m3"] };
+#
+# fetch('http://localhost:8000/models/', {
+#   method: 'POST',
+#   headers: {
+#     'Content-Type': 'application/json',
+#   },
+#   body: JSON.stringify(data),
+# })
+@app.post("/models/")
+async def get_data(models: List[str] = Body(...), video: UploadFile = File(...)):
+    # need to store the video locally and pass it into the detector
+    contents = await video.read()
+    with open(video.filename, "wb") as f:
+        f.write(contents)
+    path = video.filename
+    detecotor = Detector(path)
+    return detecotor.aggregate(models)  # the list of models are passed into aggregate function
