@@ -1,0 +1,292 @@
+.card {
+  padding: 10px;
+  box-shadow: 0 0 5px #ffdfdf;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.card .top{
+  text-align: center;
+}
+
+.card p {
+  font-weight: bold;
+  color: #0086fe;
+}
+
+.card button{
+  outline: 0;
+  border: 0;
+  color: #fff;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 400;
+  padding: 8px 13px;
+  width: 100%;
+  background: #0086fe;
+}
+
+.card .drag-area{
+  height: 150px;
+  border-radius: 5px;
+  border: 2px dashed #0086fe;
+  color: #0086fe;
+  background: #f4f3f9;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+  -webkit-user-select: none;
+  margin-top: 10px;
+}
+
+.card .drag-area .visible{
+  font-size: 18px;
+}
+
+.card .select{
+  color:#5256ad;
+  margin-left: 5px;
+  cursor: pointer;
+  transition: 0.4s;
+}
+
+.card .select:hover{
+  opacity: 0.6s;
+}
+
+.card .container{
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  max-height: 200px;
+  overflow-y: auto;
+  margin-top: 10px;
+}
+
+.card .container .image{
+  width: 75px;
+  margin-right: 5px;
+  height: 75px;
+  position: relative;
+  margin-bottom: 8px;
+}
+
+.card .container .image img{
+  width: 100%;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.card .container .image span{
+  position: absolute;
+  top: -2px;
+  right: 9px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.card input,
+.card .drag-area .on-drop,
+.card .drag-area.dragover .visible{
+  display: none;
+}
+
+.delete{
+  z-index: 999;
+  color: #0086fe;
+}
+
+.content-container {
+  display: flex;
+  height: 100vh;
+}
+
+.left-half {
+  flex: 1;
+  padding: 20px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+.right-half {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.navbar {
+  background-color: #3498db;
+  color: #fff;
+  padding: 15px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.nav-buttons {
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+}
+
+.nav-button {
+  background-color: #2980b9;
+  color: #fff;
+  padding: 10px 15px;
+  margin: 0 5px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-button:hover {
+  background-color: #2c3e50;
+}
+
+.content-container {
+  display: flex;
+  flex: 1;
+}
+
+.left-half,
+.right-half {
+  flex: 1;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Add border for clarity */
+.left-half {
+  border: 1px solid #ccc;
+}
+
+/* App.css */
+
+/* ... (existing styles) */
+
+.checkbox-container label {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  font-size: 16px;
+  position: relative;
+  cursor: pointer;
+}
+
+.checkbox-container input {
+  margin-right: 10px;
+  position: absolute;
+  opacity: 0; /* Hide the default checkbox */
+  cursor: pointer;
+}
+
+.checkbox-container .custom-checkbox {
+  position: relative; /* Updated position to relative */
+  height: 20px;
+  width: 20px;
+  background-color: #fff;
+  border: 2px solid #333;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox-container .custom-checkbox::before {
+  content: '\2713'; /* Unicode checkmark character */
+  color: #333;
+  font-size: 16px;
+  opacity: 0;
+}
+
+.checkbox-container input:checked + .custom-checkbox::before {
+  opacity: 1;
+}
+
+/* App.css */
+
+.dark-mode {
+  background-color: #282c36;
+  color: #fff;
+}
+
+.dark-mode .navbar {
+  background-color: #1a1c20;
+  color: #fff;
+}
+
+.dark-mode .nav-button {
+  background-color: #38454b;
+}
+
+/* Add more styles for dark mode as needed */
+
+/* App.css */
+
+/* Add these styles for button slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 34px;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+  border-radius: 50%;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(16px);
+  -ms-transform: translateX(16px);
+  transform: translateX(16px);
+}
+

@@ -4,19 +4,27 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import EmailIcon from "@mui/icons-material/Email";
 import axios from "axios";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
+  const history=useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
 
  async function submit(e) {
   e.preventDefault();
+  if(!username||!password){
+  alert("Please fill all the fields");
+  return;
+  }
   try {
-    const response = await axios.post("http://127.0.0.1:8000/api/login", {
-      username,
-      password,
-    });
+    const response = await fetch(`http://127.0.0.1:8000/login?username=${username}&password=${password}`);
+    if(response.status === 200){
+    history("/home",{state:{username:username}});
+    }
+    else if (response.status === 400){
+    alert("Incorrect Credentials");
+    }
     console.log(response.data);
   } catch (error) {
     console.error("Error during signup:", error);

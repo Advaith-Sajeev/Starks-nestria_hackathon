@@ -1,9 +1,9 @@
-from fastapi import FastAPI, Body, UploadFile, File
+from fastapi import FastAPI, Body, UploadFile, File, HTTPException
 from typing import List
 from fastapi.middleware.cors import CORSMiddleware
 from database import userdata
 
-# from main import Detector
+# from main.Models
 
 app = FastAPI()
 
@@ -18,28 +18,25 @@ app.add_middleware(
 
 
 # sign up
-@app.post("/api/signup")
-async def sign_up(data: dict):
-    name = data.get("name")
-    username = data.get("username")
-    password = data.get("password")
+@app.get("/signup")
+async def sign_up(name: str, username: str, password: str):
     count = userdata.count_documents({'username': username})
     if count != 0:
-        return False
+        raise HTTPException(status_code=400, detail="Username already exists")
     userdata.insert_one({'name': name, 'username': username, 'password': password})
-    return True
+    return {"result": True}
 
 
 # login
-@app.get("/api/login")
+@app.get("/login")
 async def login(username: str, password: str):
     count = userdata.count_documents({'username': username})
     if count == 0:
-        return False
+        raise HTTPException(status_code=400, detail="Username already exists")
     authData = userdata.find_one({"username": username})
     if authData["password"] == password:
         return True
-    return False
+    raise HTTPException(status_code=400, detail="Username already exists")
 
 
 # data should be passed in the format given below
@@ -54,11 +51,11 @@ async def login(username: str, password: str):
 #   body: JSON.stringify(data),
 # })
 @app.post("/models/")
-async def get_data(models: List[str] = Body(...), video: UploadFile = File(...)):
+async def get_data(models: List[str] = Body(...), file: UploadFile = File(...)):
     # need to store the video locally and pass it into the detector
-    contents = await video.read()
-    with open(video.filename, "wb") as f:
+    contents = await file.read()
+    with open(file.filename, "wb") as f:
         f.write(contents)
-    path = video.filename
-    detecotor = Detector(path)
-    return detecotor.aggregate(models)  # the list of models are passed into aggregate function
+    path = file.filename
+    # detecotor = Detector(path)
+    # return detecotor.aggregate(models)  # the list of models are passed into aggregate function
