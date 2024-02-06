@@ -1,7 +1,10 @@
 import React, { useState, useRef } from 'react';
+import {useLocation} from 'react-router-dom';
 import "../styles/home.css";
 
 function DragDropImageUploader() {
+const location=useLocation();
+const username=location.state.username;
   const [mediaFiles, setMediaFiles] = useState([]);
   const [isDragging, setIsDragging] = useState(false);
   const [selectedDetectors, setSelectedDetectors] = useState([]);
@@ -20,9 +23,14 @@ function DragDropImageUploader() {
     // Use dynamic models based on selected detectors
     const models = selectedDetectors;
 
-    const formData = new FormData();
-    formData.append('file', file);
-    formData.append('models', JSON.stringify(models));
+    const formData = {
+    file:file,
+    models:models,
+    username:username
+    };
+//    formData.append('file', file);
+//    formData.append('models', JSON.stringify(models));
+    console.log(formData)
 
     try {
       const response = await fetch('http://localhost:8000/models/', {
