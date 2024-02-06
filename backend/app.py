@@ -1,7 +1,7 @@
 from fastapi import FastAPI, Body, UploadFile, File, HTTPException
 from typing import List
 from fastapi.middleware.cors import CORSMiddleware
-from database import userdata
+from database import userdata, filedata
 
 # from main.Models
 
@@ -51,11 +51,13 @@ async def login(username: str, password: str):
 #   body: JSON.stringify(data),
 # })
 @app.post("/models/")
-async def get_data(models: List[str] = Body(...), file: UploadFile = File(...)):
+async def get_data(username, models: List[str] = Body(...), file: UploadFile = File(...)):
     # need to store the video locally and pass it into the detector
     contents = await file.read()
     with open(file.filename, "wb") as f:
         f.write(contents)
     path = file.filename
+    filedata.insert_one({"username": username, "filename": file.filename})
     # detecotor = Detector(path)
     # return detecotor.aggregate(models)  # the list of models are passed into aggregate function
+
