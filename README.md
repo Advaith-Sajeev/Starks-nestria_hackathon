@@ -1,9 +1,9 @@
 TEAM - STARKS
 
-Team Members:                                                                                                                            
+Team Members:<br />
 •	B Mahesh Raj <br />
 •	Shrish Kumar L <br />
 •	Advaith Sajeev <br />
-•	Sarath Chandra <br />
+•	Sharath Chandra <br />
 •	Kishore Kuttalam <br />
 
